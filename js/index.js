@@ -30,7 +30,7 @@ $(document).ready(function () {
     var nextPage;
     // 背景音乐和声音的处理start
     var music = document.getElementById('music')
-    music.load();
+    // music.load();
     //bgMusic
     wx.config({
     });
@@ -590,10 +590,11 @@ $(document).ready(function () {
 });
 function playMusic() {
     // 播放
-    $('#musicMenu').addClass('move').attr('autoplay','autoplay');
+    $('#musicMenu').addClass('move');
     document.getElementById("musicMenu").loop = true;
     document.getElementById("musicMenu").volume = 0.2;
     $('#musicMenu').show();
+    music.load();
     music.play();
 }
 function pauseMusic() {
