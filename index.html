@@ -15,6 +15,9 @@
     <script src="js/turn.html4.min.js"></script>
     <script src="js/turn.js"></script>
     <script>
+          window.onload = function () {
+                setTimeout("reurl()", 100);//0.1秒后刷新
+            }
         imgLoader([
             './audio/music.mp3',
             './images/ban_cm_shouting.jpg',
@@ -78,7 +81,7 @@
             if (percentage == 1) {
                 var  isLoading = localStorage.getItem('firstLoading')
                 setTimeout(function () {
-                    reurl()
+                    
                     $('.loader').remove();
                     if(!isLoading){
                         $('.home').show();
@@ -452,9 +455,7 @@
                     self.location.replace(url);
                 }
             }
-            // window.onload = function () {
-            //     setTimeout("reurl()", 100);//0.1秒后刷新
-            // }
+          
     </script>
 </body>
 </html>
