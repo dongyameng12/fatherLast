@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>北京移动</title>
+    <link rel="stylesheet" href="css/reset.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <script src="js/imgLoader.js"></script>
+    <script src="js/fastclick.js"></script>
+    <script src="js/modernizr.2.5.3.min.js"></script>
+    <script src="js/jweixin-1.0.0.js"></script>
+    <script src="js/turn.html4.min.js"></script>
+    <script src="js/turn.js"></script>
+    <script>
+        imgLoader([
+            './audio/music.mp3',
+            './images/ban_cm_shouting.jpg',
+            './images/ban_beixiang.png',
+            './images/ban_fangxin.png',
+            './images/ban_shiyuan.jpg',
+            './images/ban_wangka.png',
+            './images/ban_wuxianka.png',
+            './images/ban_wuyuan.jpg',
+            './images/ban_ziyou.jpg',
+            './images/all_btn.png',
+            './images/bg.png',
+            './images/close.png',
+            './images/end_01.png',
+            './images/end_02.png',
+            './images/end_03_01.png',
+            './images/end_03.png',
+            './images/end_04_01.png',
+            './images/end_04.png',
+            './images/end_blook.png',
+            './images/end_btn.png',
+            './images/end_li.png',
+            './images/end_look.png',
+            './images/home_01.png',
+            './images/home_02.png',
+            './images/home_left.png',
+            './images/home_rig.png',
+            './images/home_title_01.png',
+            './images/home_title.png',
+            './images/homex_01.png',
+            './images/homex_02.png',
+            './images/homex_03.png',
+            './images/homex_04.png',
+            './images/last_06.png',
+            './images/last_beiying.png',
+            './images/p_01.png',
+            './images/p_02.png',
+            './images/p_03.png',
+            './images/p_04.png',
+            './images/p_05.png',
+            './images/p_06.png',
+            './images/p_bg.png',
+            './images/palymemories.png',
+            './images/ph_01.png',
+            './images/rule_bg.png',
+            './images/rule.png',
+            './images/share_01.png',
+            './images/startx.png',
+            './images/tc_01.png',
+            './images/tc_bg.png',
+            './images/tc_cancel.png',
+            './images/tc_cgive.png',
+            './images/tc_qita.png',
+            './images/tc_sure.png',
+            './images/tc_xg.png',
+            './images/tc_xsure.png'
+        ],function (percentage) {
+            var percentT = percentage * 100;
+            $('.loader_info').html('Loading ' + (parseInt(percentT)) + '%');
+            $('.loader_progress')[0].style.width = percentT + '%';
+            if (percentage == 1) {
+                var  isLoading = localStorage.getItem('firstLoading')
+                setTimeout(function () {
+                    $('.loader').remove();
+                    if(!isLoading){
+                        $('.home').show();
+                        login();
+                    } else {
+                        if (jump_alink) {
+                            $('#givebtn').css('background-image', 'url(./images/end_blook.png)')
+                            $('#change_context').html("<p class='zhanshi'>已转增给<span>XXXXXXXXXXX</span></p>")
+                        }
+                        $('.end').show();
+                    }
+                }, 1000);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <!-- 测试按钮 -->
+    <button style="position:absolute;z-index:300;top:1rem;font-weight:bolder;" href="#" class="test2">没有关注公众号</button>
+    <button style="position:absolute;z-index:300;top:1.5rem;font-weight:bolder;" href="#" class="test3">没有绑定用户</button>
+    <button style="position:absolute;z-index:300;top:2rem;font-weight:bolder;" href="#" class="test4">异网用户</button>
+    <button style="position:absolute;z-index:300;top:2.5rem;font-weight:bolder;" href="#" class="test5">恢复首次登录</button>
+    <!--loading-->
+    <section class="loader" >
+        <div class="loader_info"></div>
+        <div>
+            <div class="loader_progress"></div>
+        </div>
+    </section>
+    <!-- 背景音乐 -->
+    <section class="music" id="musicMenu">
+        <!-- <audio src="audio/music.mp3" preload="none" loop id="music" autoplay=false></audio> -->
+        <audio src="audio/music.mp3" preload="auto" loop id="music"></audio>
+    </section>
+    <!-- 首页 -->
+    <section class="home">
+        <div>
+            <a href="javascript:void(0);" class="rule"></a>
+            <div></div>
+        </div>
+        <div>
+            <div id="change"></div>
+            <div></div>
+            <div></div>
+        </div>
+        <!-- 开启相册 -->
+        <div id="start_memories"></div>
+        <div></div>
+    </section>
+    <!-- 照片展示 -->
+    <section class="phdisplay">
+        <div>
+            <div id="ph_title"></div>
+        </div>
+        <div>
+            <ul class="ph_list">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <!-- 播放回忆 -->
+        <div id="play_memories"></div>
+        <div></div>
+        <a href="javascript:void(0);" id="tiaoguo">跳过</a>
+    </section>
+    <!-- 回忆录 -->
+    <section class="list flipbook-viewport">
+        <div class="container">
+            <div class="flipbook">
+                <!-- 场景1 -->
+                <div>  
+                    <div>
+                        <p>当你出生后 </p>
+                        <p>初为人父的他</p>
+                        <p>眼中多了些许温柔 </p>
+                        <p>看着安稳熟睡的你</p>
+                        <p>他觉得自己是 </p>
+                        <p>世界上最幸福的爸爸</p>
+                    </div>
+                    <div></div>
+                </div>
+                <!-- 场景2-->
+                <div>
+                    <div> 
+                        <p>小时候你总是说&nbsp;&nbsp;爸爸是超人 </p>
+                        <p>有他在的地方&nbsp;&nbsp;就是温暖的避风港 </p>
+                        <p>可是为什么你需要他时&nbsp;&nbsp;他总会出现 </p>
+                        <p>其实&nbsp;&nbsp; 不管你需不需要</p>
+                        <p>他都一直在你身后</p>
+                        <p>默默守护</p>
+                    </div>
+                    <div></div>
+                </div>
+                <!-- 场景3 -->
+                <div>
+                    <div>
+                        <p>那年你为了梦想离开家乡</p>
+                        <p>只说了一句记得回家 </p>
+                        <p>其实年轻时 </p>
+                        <p>他也曾满腔热血</p>
+                        <p>但你的一声“爸爸” </p>
+                        <p>他选择放慢了脚步</p>
+                        <p>陪你一起长大</p>
+                    </div>
+                    <div></div>
+                </div>
+                <!-- 场景4-->
+                <div>     
+                    <div>
+                        <p>后来你结婚生子</p>
+                        <p>有了自己的家庭 </p>
+                        <p>妈妈说爸爸总是偷偷翻看相册  </p>
+                        <p>有时还会憨憨的笑</p>
+                        <p>大概你成长中的每件事 </p>
+                        <p>他都记得吧 </p>
+                    </div>
+                    <div></div>    
+                </div>
+                <!-- 场景5 -->
+                <div>
+                    <div>
+                        <p>以为他不善表达</p>
+                        <p>打电话总念叨着  </p>
+                        <p>“我们都挺好的 不多说了”</p>
+                        <p>其实他是怕聊太久浪费钱</p>
+                        <p>有很多话还没说出口</p>
+                        <p>“想你了回来看看吧”</p>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div id="return">
+            <a href="javascript:void(0);" class="next">下一页</a>
+            <a href="javascript:void(0);" class="prev">返回</a>
+        </div>
+    </section>
+    <!-- 合上相册 -->
+    <section class="last_page">
+        <div id="last_first" class="rotateInDownleft">
+            <img src="./images/last_06.png" class="last_img">
+        </div>
+        <div>
+            <div class="last_01 reset_list">
+                <p>几张泛黄的照片写满了回忆</p>
+                <p>他无声的爱就这样伴你数十年 </p>
+                <p>时间稍纵即逝却也留下了痕迹</p>
+            </div>
+            <div  class="last_02 reset_list">
+                <p>他的脊背不再挺拔 </p>
+                <p> 他的双鬓遮不住白发</p>
+                <p> 好似是岁月的提醒：</p>
+                <p>现在&nbsp;&nbsp;该你守护他了</p>
+            </div>
+            <div  class="last_03 reset_list">
+                <p></p>
+            </div>
+            <div class="last_02 reset_list"></div>
+        </div>
+        <a href="Javascript:void(0);" class="finish">结束</a>
+    </section>
+    <!-- 结束页 -->
+    <section class="end">
+        <div>
+            <a href="javascript:void(0)" id="again_look"></a>
+            <a href="javascript:void(0);"class="rule"></a>
+        </div>
+        <div>
+            <div class="tada" id='main_share'></div>
+            <div id="change_context">
+                <input id="inputTel" class="name" type="number" pattern="[0-9]*" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="请输入北京移动手机号码">
+            </div>
+            <a href="javascript:void(0);" id="givebtn"></a>
+        </div>
+        <div>
+            <a href="https://mp.weixin.qq.com/s/eoP7UBawnmV8o1ooceBdvg"><span class="main_btn"></span></a>
+            <a href="javascript:void(0);"><span class="main_btn"></span></a>
+        </div>
+        <div></div>
+    </section>
+    <!-- 活动规则 -->
+    <section class="tc tc_rule">
+        <ul>
+            <li>
+                <p>一 活动时间：</p>
+                <p>即日起——6月20日</p>
+            </li>
+            <li>
+                <p>二 活动介绍：</p>
+                <p>活动期间，用户通过北京移动微信公众号，参与“爸爸的相册”活动。点击“播放回忆”按钮，会自动观看相册中的照片，讲述爸爸陪伴孩子从婴儿成长到中年的各个阶段。当照片播放完毕后，用户就可以为爸爸转赠520MB全国流量（需送给北京移动手机号码）。将活动发送给好友后，还可再领取一份流量奖励。</p>
+            </li>
+            <li>
+                <p>三 奖品规则：</p>
+                <p>活动奖品包含： 100MB、520MB、1GB全国流量，及部分免费业务体验资格、优惠业务办理资格。</p>
+                <p>（一）流量奖品</p>
+                <p>1.	奖品将于领取后15日内，自动充入用户的微信关注绑定手机号，流量自充入日起生效，有效期7天；</p>
+                <p>2.	获赠流量使用优先级高于主套餐、可选包及部分定向流量包，赠送流量无法共享，不可结转；</p>
+                <p>3.	处于保留期、保号期、挂失、申停、欠停、转品牌过渡期的手机号；物联网卡、4G超级日租卡套餐、神州行开心听、语音套餐卡、神州行B标准资费基本策划等特殊资费用户无法领取赠送流量；</p>
+                <p>4.	赠送流量每月仅可领取100次，超出上限不可领取。</p>
+                <p>5.	北京移动用户抽中流量奖品后，自动充入关注绑定账户。非北京移动用户抽中流量奖品后可以转赠给北京移动手机号码。</p>
+                <p>（二）其它奖品</p>
+                <p>规则详见各奖品办理页面</p>
+                <p>温馨提示：活动将于6月20日结束，请您务必于活动结束前完成领奖，逾期视为自动放弃奖品。</p>
+            </li>
+        </ul>
+        <a href="javascript:void(0);" class="close"></a>
+    </section>
+    <!-- 分享页 -->
+    <section class="share">
+        <div></div> 
+    </section>
+    <!-- 绑定手机号 -->
+    <section class="bind"></section>
+    <!-- 信息确认 -->
+    <section class="tc tc_01">
+        <div>
+            <div></div>
+            <div>
+                <p>您是否将
+                    <span> 50</span>
+                    <span>MB</span> 全国流量 </p>
+                <p>转赠到手机号码</p>
+                <p class="phone_text">13800000000 </p>
+                <p>的账户中？</p>
+            </div>
+            <div>
+                <p>点击确认后，信息将不可更改。</p>
+            </div>
+        </div>
+        <div>
+            <a href="javascript:void(0);" id="modify"></a>
+            <a href="javascript:void(0);" id="givebtn_01"></a>
+        </div>
+    </section>
+    <!-- 温馨提示 -->
+    <section class="tc tc_02">
+        <a href="javascript:void(0);" id="givebtn_02"></a>
+        <div>
+            <div>
+                <p>您已将<span> 50</span><span>MB</span> 全国流量 </p>
+                <p>转赠到手机号码</p>
+                <p class="phone_text">13800000000 </p>
+                <p>的账户中。</p>
+            </div>
+            <div>
+                <p>流量将于15日内到账，</p>
+                <p> 有效期7天</p>
+                <p>(流量到账后，立即生效)</p>
+            </div>
+            <a href="javascript:void(0);" class="giveta_link giveta_libg"></a>
+        </div>
+        <a href="javascript:void(0);" class="giveta_link"></a>
+    </section>
+    <!-- 本网弹窗 -->
+    <section class="tc tc_03">
+        <a href="javascript:void(0);" class="close"></a>        
+        <div>  
+            <p>恭喜您的手机号</p>
+            <p>XXXXXXXXXXX</p>
+            <p>获得<span>500MB</span>全国流量</p>
+            <p>流量将于15日内到账</p>
+            <p>有效期：7天</p>
+            <p>（流量到账后，立即生效）</p> 
+            <a href="javascript:void(0);" class="a_link_cm al_cmbg"></a>
+        </div>
+        <a href="javascript:void(0);" class="a_link_cm" id="close7_cm"></a>
+    </section>
+    <!-- 异网弹窗1 -->
+    <section class="tc tc_04">
+        <a href="javascript:void(0);" class="close"></a>
+        <div> 
+            <p>恭喜您的手机号</p>
+            <p> XXXXXXXXXXX</p>
+            <p> 获得<span>1GB</span>全国流量 </p>
+            <p>您可以转赠到 </p>
+            <p>北京移动号码内</p>
+            <p>(流量仅可在活动期间进行转赠)</p>
+        </div>
+        <div>
+            <a href="http://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7858699aca01b75f&redirect_uri=http%3A%2F%2Fserviceimg.bmcc.com.cn%2Fweixin%2FyiWang2019%2Findex.do&response_type=code&scope=snsapi_base&state=yiWang2019#wechat_redirect"></a>
+            <a href="javascript:void(0);" id="givebtn4"></a>
+        </div>
+    </section>
+    <!-- 异网弹窗2 -->
+    <section class="tc tc_05">
+       <a href="javascript:void(0);" class="close"></a>
+        <div>
+            <p>请输入好友 </p>
+            <p>北京移动手机号码</p>
+            <p>
+                <span>手机号</span>
+                <input id="inputMobile" type="number" pattern="[0-9]*" oninput="if(value.length>11)value=value.slice(0,11)">
+            </p>
+            <p>(流量仅可在活动期间进行转赠)</p>
+        </div>
+        <a href="javascript:void(0);" id="givebtn5"></a>
+    </section>
+    <!-- 异网弹窗3 -->
+    <section class="tc tc_06">
+        <div>
+            <p>您是否将</p>
+            <p><span> 500MB</span>全国流量 </p>
+            <p>转赠到手机号码</p>
+            <p><span class="mobile_text">xxxxxxxxxxx </span> 账户中</p>
+            <p>点击确认后，信息将不可更改。</p>
+        </div>
+        <div>
+            <a  href="javascript:void(0)" id="reset6"></a>
+            <a  href="javascript:void(0)" id="givebtn6"></a>
+        </div>
+    </section>
+    <!-- 异网流量弹窗 4-->
+    <section class="tc tc_07">
+            <a href="javascript:void(0);" id="close8"></a>     
+            <div>
+                <p>您已将<span> 500MB</span>全国流量</p>
+                <p>转赠到手机号码</p>
+                <p><span class="mobile_text">xxxxxxxxxxx</span>账户中</p>
+                <p>流量将于15日内到账</p>
+                <p>有效期：7天</p>
+                <p>（流量到账后，立即生效）</p>
+                <a href="javascript:void(0);" class="a_link_yi al_yibg"></a>
+            </div>
+            <a href="javascript:void(0);" class="a_link_yi"  id="close7"></a>
+    </section>
+    <!-- 遮罩层 -->
+    <section class="mask" id="mask"></section>
+    <script>
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+        // 输入法聚焦
+        $('.name').on('focus', function () {
+            var bodyname = document.querySelector('.name');
+            bodyname.scrollTop = bodyname.scrollHeight;
+        })
+        // 软键盘顶起来解决问题
+        $('.name').on('blur', function () {
+            window.scroll(0, 0)
+        })
+        // 是否第一次进入
+        var firstLoading = false;
+        function login() {
+            var first_login = localStorage.getItem('firstLoading')
+            if (first_login == null) {
+                localStorage.setItem('firstLoading', true)
+                $('#return').hide()
+            } else {
+                firstLoading = true
+            }
+        }
+    </script>
+</body>
+</html>
+<script src="js/index.js"></script>
