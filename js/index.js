@@ -590,7 +590,7 @@ $(document).ready(function () {
 });
 function playMusic() {
     // 播放
-    $('#musicMenu').addClass('move');
+    $('#musicMenu').addClass('move').attr('autoplay','autoplay');
     document.getElementById("musicMenu").loop = true;
     document.getElementById("musicMenu").volume = 0.2;
     $('#musicMenu').show();
