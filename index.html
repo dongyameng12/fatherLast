@@ -79,6 +79,7 @@
                 var  isLoading = localStorage.getItem('firstLoading')
                 setTimeout(function () {
                     $('.loader').remove();
+                    reurl()
                     if(!isLoading){
                         $('.home').show();
                         login();
@@ -87,7 +88,6 @@
                             $('#givebtn').css('background-image', 'url(./images/end_blook.png)')
                             $('#change_context').html("<p class='zhanshi'>已转增给<span>XXXXXXXXXXX</span></p>")
                         }
-                        pauseMusic()
                         $('.end').show();
                     }
                 }, 1000);
@@ -443,6 +443,18 @@
                 firstLoading = true
             }
         }
+        // 刷新
+            function reurl() {
+                url = location.href;
+                var times = url.split("?t=");
+                if (times[1] != 1) {
+                    url += "?t=1";
+                    self.location.replace(url);
+                }
+            }
+            // window.onload = function () {
+            //     setTimeout("reurl()", 100);//0.1秒后刷新
+            // }
     </script>
 </body>
 </html>
