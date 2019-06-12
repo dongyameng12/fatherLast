@@ -15,9 +15,6 @@
     <script src="js/turn.html4.min.js"></script>
     <script src="js/turn.js"></script>
     <script>
-          window.onload = function () {
-                setTimeout("reurl()", 100);//0.1秒后刷新
-            }
         imgLoader([
             './audio/music.mp3',
             './images/ban_cm_shouting.jpg',
@@ -443,18 +440,10 @@
                 localStorage.setItem('firstLoading', true)
                 $('#return').hide()
             } else {
+                pauseMusic()
                 firstLoading = true
             }
         }
-        // 刷新
-            function reurl() {
-                url = location.href;
-                var times = url.split("?t=");
-                if (times[1] != 1) {
-                    url += "?t=1";
-                    self.location.replace(url);
-                }
-            }
           
     </script>
 </body>
