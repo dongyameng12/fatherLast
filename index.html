@@ -78,7 +78,6 @@
             if (percentage == 1) {
                 var  isLoading = localStorage.getItem('firstLoading')
                 setTimeout(function () {
-                    
                     $('.loader').remove();
                     if(!isLoading){
                         $('.home').show();
@@ -440,7 +439,6 @@
                 localStorage.setItem('firstLoading', true)
                 $('#return').hide()
             } else {
-                pauseMusic()
                 firstLoading = true
             }
         }
