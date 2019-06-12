@@ -79,6 +79,10 @@
                 var  isLoading = localStorage.getItem('firstLoading')
                 setTimeout(function () {
                     $('.loader').remove();
+                    $('#musicMenu').addClass('move');
+                    document.getElementById("musicMenu").loop = true;
+                    document.getElementById("musicMenu").volume = 0.2;
+                    $('#musicMenu').show();
                     if(!isLoading){
                         $('.home').show();
                         login();
@@ -88,6 +92,7 @@
                             $('#change_context').html("<p class='zhanshi'>已转增给<span>XXXXXXXXXXX</span></p>")
                         }
                         $('.end').show();
+                        // playMusic()  
                     }
                 }, 1000);
             }
@@ -110,8 +115,8 @@
     </section>
     <!-- 背景音乐 -->
     <section class="music" id="musicMenu">
-        <!-- <audio src="audio/music.mp3" preload="none" loop id="music" autoplay=false></audio> -->
-        <audio src="audio/music.mp3" preload="auto" loop id="music"></audio>
+        <audio src="audio/music.mp3" preload="none" loop id="music" autoplay="autoplay"></audio>
+        <!-- <audio src="audio/music.mp3" preload="auto" loop id="music"></audio> -->
     </section>
     <!-- 首页 -->
     <section class="home">

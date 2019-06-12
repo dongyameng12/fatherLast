@@ -240,7 +240,7 @@ $(document).ready(function () {
     };
     // 开启回忆
     $('#start_memories').on('click', function () {
-        playMusic()
+        // playMusic()
         resetStyle()
         flipbook();
     });
@@ -590,10 +590,10 @@ $(document).ready(function () {
 });
 function playMusic() {
     // 播放
-    $('#musicMenu').addClass('move');
-    document.getElementById("musicMenu").loop = true;
-    document.getElementById("musicMenu").volume = 0.2;
-    $('#musicMenu').show();
+    // $('#musicMenu').addClass('move');
+    // document.getElementById("musicMenu").loop = true;
+    // document.getElementById("musicMenu").volume = 0.2;
+    // $('#musicMenu').show();
     music.play();
 }
 function pauseMusic() {
