@@ -75,7 +75,7 @@
         ],function (percentage) {
             var percentT = percentage * 100;
             $('.loader_info').html('Loading ' + (parseInt(percentT)) + '%');
-            // $('.loader_progress')[0].style.width = percentT + '%';
+            $('.loader_progress')[0].style.width = percentT + '%';
             if (percentage == 1) {
                 var  isLoading = localStorage.getItem('firstLoading')
                 setTimeout(function () {
@@ -105,9 +105,9 @@
     <!--loading-->
     <section class="loader" >
         <div class="loader_info"></div>
-        <!-- <div>
+        <div>
             <div class="loader_progress"></div>
-        </div> -->
+        </div>
     </section>
     <!-- 背景音乐 -->
     <section class="music" id="musicMenu">
